@@ -14,7 +14,7 @@ LIMIT_LETTER = 2
 
 def writeBuffer(recipient):
     with open(f'{BUFFER}/{recipient}', 'a') as fileR:
-        write = fileR.write(recipient)
+        write = fileR.write(f'{recipient}\n\n{theme}\n\n{letter}')
 
 
 def createDir():
