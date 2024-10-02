@@ -69,17 +69,14 @@ def readBase():
             number_login+=1
             login = row['login']
             password = row['password']
-            
             num_rec = 0
-            
             with open(BASE_FILE, 'r') as file2:
                 for user in csv.DictReader(file2):
                     recipient = user['Email']
                     if recipient not in os.listdir(f'{SENT_DIR}'):
                         main(number_login, recipient, login, password)
                         num_rec+=1
-                        if num_rec == LIMIT_LETTER:
-                            break
+                        if num_rec == LIMIT_LETTER:break
 
 if __name__ == '__main__':
     createDir()
