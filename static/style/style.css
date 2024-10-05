@@ -1,9 +1,7 @@
 *{
 	margin: 0 auto;
 	padding: 0;
-/*	background-color: bisque;*/
 	background-color: darkslategrey;
-/*	background-color: black;*/
 	font-style: italic;
 }
 
@@ -52,41 +50,54 @@ h1{
 	font-size: 17px;
 }
 
+.table-container {
+    width: 75%;
+    height: 600px;
+    margin: 20px auto;
+    overflow-y: auto;
+    border: 1px solid black; 
+    padding: 10px;
+}
+
 table {
-	width: 80%;
-	border-collapse: collapse; /* Убираем двойные границы */
-	margin: 0 auto;
-	font-size: 14px;
-	text-align: left;
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    text-align: left;
+
+    scrollbar-width: none;
+    -ms-overflow-style: none;
 }
 
-/* Стили для заголовков таблицы */
+.table-container::-webkit-scrollbar {
+    display: none; 
+}
+
 thead th {
-	background-color: #4CAF50; /* Зелёный цвет для заголовков */
-	color: white; /* Белый текст */
-	padding: 12px; /* Внутренние отступы */
+    position: sticky; 
+    top: 0;
+    z-index: 1;
+    border: 1px solid black;
+    padding: 6px;
+    text-align: center;
+    background-color: blueviolet;
+    opacity: 0.5;
 }
 
-/* Стили для строк таблицы */
-tbody tr {
-	border-bottom: 1px solid #dddddd; /* Нижняя граница у строк */
-}
-
-tbody tr:nth-child(even) {
-	background-color: #f2f2f2; /* Заливка чётных строк для чередования */
-}
-
-tbody tr:hover {
-	background-color: #ddd; /* Цвет при наведении на строку */
-}
-
-/* Стили для ячеек данных */
 td {
-	padding: 12px; /* Внутренние отступы */
-	border-bottom: 1px solid #dddddd; /* Нижняя граница ячеек */
+    padding: 6px;
+    border: 1px solid black;
 }
 
-/* Выравнивание первой колонки с нумерацией по центру */
 td:first-child {
-	text-align: center;
+    text-align: center;
+}
+
+td:last-child {
+    text-align: center;
+}
+
+th.email-column, td.email-column {
+/*    width: 100px; /* Фиксированная ширина колонки */*/
+    word-break: break-word; /* Перенос текста при необходимости */
 }
