@@ -1,1 +1,6 @@
+__pycache__/
+Buffer/
+Sent/
 account.csv
+users.csv
+base.csv
