@@ -1,4 +1,4 @@
-import csv, sqlite3
+import csv, sqlite3, time
 from sql.createTable import addInfo
 
 base = 'calling.db'
@@ -12,9 +12,10 @@ def createTable():
     else:print("Успешный запрос к Базе Данных...")
 
 def writeData(email, username, domain):
+    timeLog = time.strftime("Time: %H-%M-%S  Date: %d/%m/%Y")
     writeResult = f"""\
-            INSERT INTO users (email, name, domain, status)
-            VALUES ('{email}', '{username}', '{domain}', 'OK')
+            INSERT INTO users (email, name, domain, status, date)
+            VALUES ('{email}', '{username}', '{domain}', 'OK', '{timeLog}')
             """
     con = sqlite3.connect(base)
     cur = con.cursor()

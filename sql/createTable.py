@@ -4,7 +4,8 @@ CREATE TABLE IF NOT EXISTS users (
     email TEXT,
     name TEXT,
     domain TEXT,
-    status TEXT
+    status TEXT,
+    date TEXT
 );
 """
 
