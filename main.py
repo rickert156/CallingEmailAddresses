@@ -3,7 +3,10 @@ from email.mime.text import MIMEText
 
 import smtplib, csv, os, shutil
 
-from letter import theme, letter
+from template.letter import theme, letter
+from utils.buffer import writeBuffer
+from utils.createDir import createDir
+from utils.trash import DeleteTrash
 
 ACCOUNT = 'account.csv'
 BASE_FILE = 'base.csv'
@@ -12,17 +15,8 @@ BUFFER = 'Buffer'
 
 LIMIT_LETTER = 2
 
-def writeBuffer(recipient):
-    with open(f'{BUFFER}/{recipient}', 'a') as fileR:
-        write = fileR.write(f'{recipient}\n\n{theme}\n\n{letter}')
-
-
-def createDir():
-    if not os.path.exists(SENT_DIR):os.makedirs(SENT_DIR)
-    if not os.path.exists(BUFFER):os.makedirs(BUFFER)
-
 def main(number, recipient, log, pwd):
-    writeBuffer(recipient)
+    writeBuffer(recipient, theme, letter)
     try:
         msg = MIMEMultipart()
         message = letter
@@ -55,6 +49,7 @@ def main(number, recipient, log, pwd):
             print(f"Ошибка при отправке письма: {e}")
         finally:
             server.quit()
+            DeleteTrash()
 
         print(f"[{number}] {log} => Email sent to {msg['To']}")
         
