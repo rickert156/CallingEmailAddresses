@@ -3,12 +3,12 @@ from email.mime.text import MIMEText
 
 import smtplib, csv, os, shutil
 
-from template.letter import theme, letter
+from templates.letter import theme, letter
 from utils.buffer import writeBuffer
 from utils.createDir import createDir
 from utils.trash import DeleteTrash
-from recording import createTable
-from recording import writeData
+from utils.recording import createTable
+from utils.recording import writeData
 
 ACCOUNT = 'account.csv'
 BASE_FILE = 'base.csv'

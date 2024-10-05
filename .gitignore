@@ -1,6 +1,7 @@
 __pycache__/
 Buffer/
 Sent/
+venv/
 account.csv
 users.csv
 base.csv

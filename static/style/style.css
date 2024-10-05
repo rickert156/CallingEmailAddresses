@@ -1,0 +1,53 @@
+*{
+	margin: 0 auto;
+	padding: 0;
+/*	background-color: bisque;*/
+	background-color: darkslategrey;
+/*	background-color: black;*/
+}
+
+li{
+	list-style: none;
+}
+a{
+	text-decoration: none;
+	
+}
+
+h1{
+	color: yellowgreen;
+}
+
+.header{
+	width: 100%;
+	height: 50px;
+	border-bottom: 1px solid darkblue;
+	background-color: black;
+}
+
+.header ul, li, a{
+	background-color: black;
+}
+
+.header ul{
+	float: right;
+	margin: 8px;
+	display: flex;
+}
+
+.header li{
+	margin: 8px;
+}
+
+.header a{
+	color: #39FF14;
+	font-size: 16px;
+	transition: 0.5s;
+}
+
+.header a:hover{
+	color: orangered;
+	font-size: 17px;
+}
+
+

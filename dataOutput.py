@@ -2,7 +2,7 @@ import sqlite3
 
 base = 'calling.db'
 
-def main():
+def output():
     con = sqlite3.connect(base)
     cur = con.cursor()
     sql = """\
@@ -17,4 +17,4 @@ def main():
     cur.close()
     con.close()
 
-main()
+#output()
