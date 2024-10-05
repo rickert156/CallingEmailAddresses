@@ -1,9 +1,62 @@
 {% extends 'base.html' %}
 
 {% block title %}
-Отправленные
+Sent
 {% endblock %}
 
 {% block content %}
-<h1>Отправлено</h1>
+<h1>Sent</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>№</th>
+                <th>Email</th>
+                <th>Name</th>
+                <th>Domain</th>
+                <th>Status</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody id="userTableBody">
+            <!-- Таблица будет обновляться автоматически -->
+        </tbody>
+    </table>
+
+    <script>
+        // Функция для обновления данных таблицы
+        function updateTable() {
+            fetch('/all-data')  // Запрашиваем данные с сервера
+                .then(response => response.json())
+                .then(data => {
+                    const tableBody = document.getElementById('userTableBody');
+                    tableBody.innerHTML = '';  // Очищаем старые данные
+                    
+                    // Нумерация будет начинаться с 1 и увеличиваться с каждой строкой
+                    let startIndex = data.length;
+
+                    // Добавляем новые строки с данными
+                    data.reverse().forEach((user, index) => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${startIndex - index}</td> <!-- Обратная нумерация -->
+                            <td>${user[1]}</td>
+                            <td>${user[2]}</td>
+                            <td>${user[3]}</td>
+                            <td>${user[4]}</td>
+                            <td>${user[5]}</td>
+                        `;
+                        tableBody.appendChild(row);
+                    });
+                })
+                .catch(error => console.error('Ошибка:', error));
+        }
+
+        // Автоматически обновляем таблицу каждые 5 секунд
+        setInterval(updateTable, 1000);
+
+        // Запрашиваем данные сразу после загрузки страницы
+        updateTable();
+    </script>
+</body>
+</html>
 {% endblock %}

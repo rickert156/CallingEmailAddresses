@@ -1,17 +1,22 @@
-from flask import Flask, render_template
-import sqlite3
+from flask import Flask, render_template, jsonify
 from dataOutput import output
 
 app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    data = output()
+    return render_template('index.html', users=data)
 
 @app.route('/all')
 def all():
-    return render_template('all.html')
+    data = output()
+    return render_template('all.html', users=data)
 
+@app.route('/all-data')
+def all_data():
+    data = output() 
+    return jsonify(data)
 
 if __name__ == '__main__':
     app.run(debug=True)

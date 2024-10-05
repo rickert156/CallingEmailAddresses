@@ -1,9 +1,31 @@
 {% extends 'base.html' %}
 
 {% block title %}
-Полная база
+Mailing List
 {% endblock %}
 
 {% block content %}
-<h1>База для прозвона</h1>
+<h1>Mailing List</h1>
+	<div class="content">
+		<li>№</li>
+		<li>Email</li>
+		<li>Name</li>
+		<li>Domain</li>
+		<li>Date</li>
+	</div>
+
+
+	{% for user in users %}
+	<div>	
+		<div>{{ loop.index }}</div>
+		<div>{{ user[1] }}</div> 
+		<div>{{ user[2] }}</div> 
+		<div>{{ user[3] }}</div> 
+		<div>{{ user[4] }}</div> 
+		<div>{{ user[5] }}</div> 
+	</div>
+	{% endfor %}
+
+</body>
+</html>
 {% endblock %}
