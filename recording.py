@@ -20,9 +20,7 @@ def writeData(email, username, domain):
     cur = con.cursor()
     try:cur.execute(writeResult)
     except sqlite3.DatabaseError as ex:print(f"Error: {ex}")
-    else:
-        print(f'Данные записаны: {email}')
-        con.commit()
+    else:con.commit()
     cur.close()
     con.close()
 
