@@ -26,17 +26,4 @@ def writeData(email, username, domain):
     cur.close()
     con.close()
 
-def main():
-    with open(sourceFile, 'r') as file:
-        count_email = 0
-        for data in csv.DictReader(file):
-            count_email+=1
-            email = data['Email']
-            username = data['Name']
-            domain = data['Domain']
-            print(f'[{count_email}] {email} | {username} | {domain}')
-            writeData(email, username, domain)
-    
-if __name__ == '__main__':
-    createTable()
-    main()
+   

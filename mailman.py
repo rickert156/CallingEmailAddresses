@@ -7,6 +7,8 @@ from template.letter import theme, letter
 from utils.buffer import writeBuffer
 from utils.createDir import createDir
 from utils.trash import DeleteTrash
+from recording import createTable
+from recording import writeData
 
 ACCOUNT = 'account.csv'
 BASE_FILE = 'base.csv'
@@ -15,7 +17,7 @@ BUFFER = 'Buffer'
 
 LIMIT_LETTER = 2
 
-def main(number, recipient, log, pwd):
+def main(number, recipient, log, pwd, name, domain):
     writeBuffer(recipient, theme, letter)
     try:
         msg = MIMEMultipart()
@@ -43,6 +45,7 @@ def main(number, recipient, log, pwd):
         try:
             server.sendmail(msg['From'], msg['To'], msg.as_string())
             shutil.move(f'{BUFFER}/{recipient}', f'{SENT_DIR}/{recipient}')
+            writeData(recipient, name, domain)
         except smtplib.SMTPRecipientsRefused as e:
             print(f"Ошибка отправки письма, адрес отклонен: {e}")
         except smtplib.SMTPException as e:
@@ -68,12 +71,15 @@ def readBase():
             with open(BASE_FILE, 'r') as file2:
                 for user in csv.DictReader(file2):
                     recipient = user['Email']
+                    name = user['Name']
+                    domain = user['Domain']
                     if recipient not in os.listdir(f'{SENT_DIR}'):
-                        main(number_login, recipient, login, password)
+                        main(number_login, recipient, login, password, name, domain)
                         num_rec+=1
                         if num_rec == LIMIT_LETTER:break
 
 if __name__ == '__main__':
+    createTable()
     createDir()
     readBase()
 
