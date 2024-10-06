@@ -1,5 +1,5 @@
 from flask import Flask, render_template, jsonify
-from dataOutput import output
+from utils.dataOutput import output
 
 app = Flask(__name__)
 
