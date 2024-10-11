@@ -1,7 +1,7 @@
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
-import smtplib, csv, os, shutil
+import smtplib, csv, os, shutil, time
 
 from templates.letter import theme, letter
 from utils.buffer import writeBuffer
@@ -11,11 +11,13 @@ from utils.recording import createTable
 from utils.recording import writeData
 
 ACCOUNT = 'account.csv'
-BASE_FILE = 'base.csv'
+BASE_FILE = 'NewClutch.csv'
+#BASE_FILE = 'users.csv'
 SENT_DIR = 'Sent'
 BUFFER = 'Buffer'
+DIR_ENCODE = 'ENCODE'
 
-LIMIT_LETTER = 2
+LIMIT_LETTER = 300
 
 def main(number, recipient, log, pwd, name, domain):
     writeBuffer(recipient, theme, letter)
@@ -50,11 +52,16 @@ def main(number, recipient, log, pwd, name, domain):
             print(f"Ошибка отправки письма, адрес отклонен: {e}")
         except smtplib.SMTPException as e:
             print(f"Ошибка при отправке письма: {e}")
+        except UnicodeEncodeError:
+            if not os.path.exists(DIR_ENCODE):os.makedirs(DIR_ENCODE)
+            with open(f'{DIR_ENCODE}/{recipient}', 'a+') as file:file.write(recipient)
+            with open(f'{SENT_DIR}/{recipient}', 'a+') as file:file.write(recipient)
+            print('Error encoding')
         finally:
             server.quit()
             DeleteTrash()
 
-        print(f"[{number}] {log} => Email sent to {msg['To']}")
+        print(f"[ {number} ] {log} => Email sent to {msg['To']}")
         
 
     except Exception as e:
@@ -68,9 +75,10 @@ def readBase():
             login = row['login']
             password = row['password']
             num_rec = 0
-            with open(BASE_FILE, 'r') as file2:
+            with open(BASE_FILE, 'r', encoding='utf-8') as file2:
                 for user in csv.DictReader(file2):
                     recipient = user['Email']
+                    recipient = recipient.encode('utf-8').decode('utf-8')
                     name = user['Name']
                     domain = user['Domain']
                     if recipient not in os.listdir(f'{SENT_DIR}'):
